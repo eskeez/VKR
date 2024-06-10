@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ submission.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ submission.director }}</h6>
+        <p class="card-text">Year: {{ submission.year }}</p>
+        <p class="card-text">Genre: {{ submission.genre }}</p>
+        <p class="card-text">Actors: {{ submission.actors }}</p>
+        <p class="card-text">Summary: {{ submission.summary }}</p>
+        {% if submission.poster_path %}
+            <img src="{{ url_for('static', filename=submission.poster_path) }}" alt="{{ submission.title }}" class="img-fluid">
+        {% endif %}
+        <form method="post" enctype="multipart/form-data" action="{{ url_for('view_submission', submission_id=submission.id) }}">
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <input type="text" class="form-control" id="rating" name="rating" required>
+            </div>
+            <div class="form-group">
+                <label for="video">Upload Video</label>
+                <input type="file" class="form-control-file" id="video" name="video" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

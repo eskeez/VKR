@@ -1,0 +1,170 @@
+  .navbar,
+        .navbar-expand-lg {
+            border-color: black; /* Change border color to #171717 */
+        }
+        .navbar-brand {
+            font-family: El-Missiri, serif;
+            font-size: 26px;
+            color: white !important; /* Make navbar brand white */
+        }
+        .form-control {
+            width: 233px;
+            height: 36px;
+        }
+
+        .me-1{
+            background-color: gray;
+            color: #171717 !important;
+            border-color: gray;
+        }
+        .me-2 {
+            background-color: #444444;
+            border-color: #444444;
+            color: white;
+        }
+        .me-3 {
+            background-color: #DA0037;
+            border-color: #DA0037;
+            color: white;
+        }
+        .container-fluid {
+            background-color: black !important;
+        }
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-family: "Montserrat Alternates", serif;
+            font-size: 14px;
+
+        }
+        .navbar-nav .nav-link.active {
+            color: white !important;
+            font-family: "Montserrat Alternates", serif;
+            font-size: 14px;
+        }
+        .navbar-toggler-icon {
+           box-shadow: 0 8px 16px rgba(255, 255, 255, 0.3), 0 12px 40px rgba(255, 255, 255, 0.3);
+
+        }
+
+        /* Add custom styles for centering search form */
+        .search-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Add custom styles for positioning sign container */
+        .sign {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        .collapse.show .row {
+            background-color:  #171717 !important;
+            border-color: #171717;
+    }
+        .collapse.show .col-lg-4 img,
+        .collapse.show .col-md-6 img,
+        .collapse.show .col-sm-12 img{
+                border-color: #171717 !important;
+                background-color:  #171717 !important;
+                color: #171717 !important;
+         }
+        .new{
+            font-family: El-Missiri, bold, serif;
+            font-size: 40px;
+            color: white !important; /* Make navbar brand white */
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+
+        .film{
+            height: 500px;
+            width: 300px;
+        }
+        .showMoreButtonContainer{
+            text-align: center;
+        }
+        .footer{
+            color:white;
+        }
+
+        .btn-primary {
+            background-color: #DA0037;
+            border-color: #DA0037;
+            box-shadow: 0 4px 10px rgba(218, 0, 55, 0.3), 0 12px 40px rgba(218, 0, 55, 0.3);
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: rgba(218, 0, 55, 0.7);
+            border-color: rgba(218, 0, 55, 0.7);
+        }
+         /* Скрыть все содержимое tabcontent по умолчанию */
+        .tabcontent {
+          display: none;
+        }
+
+        /* Кнопки вкладок */
+        .tablink {
+          background-color: black;
+            color:white;
+            box-shadow: 0 4px 10px rgba(218, 0, 55, 0.3), 0 12px 40px rgba(218, 0, 55, 0.3);
+
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 10px 20px;
+          font-size: 18px;
+        }
+
+        .tablink:hover {
+            background-color: rgba(218, 0, 55, 0.7);
+
+        }
+
+        /* Активированная вкладка */
+        .active {
+            background-color: rgba(218, 0, 55, 0.7);
+        }
+        h3{
+            color:white;
+        }
+            /* Add custom styles for positioning sign container */
+        .sign {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        .collapse.show .row {
+            background-color:  #171717 !important;
+            border-color: #171717;
+    }
+        .collapse.show .col-lg-4 img,
+        .collapse.show .col-md-6 img,
+        .collapse.show .col-sm-12 img{
+                border-color: #171717 !important;
+                background-color:  #171717 !important;
+                color: #171717 !important;
+         }
+        .new{
+            font-family: El-Missiri, bold;
+            font-size: 40px;
+            color: white !important; /* Make navbar brand white */
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .film{
+            height: 500px;
+            width: 300px;
+        }
+
+        .showMoreButtonContainer{
+            text-align: center;
+        }
+        .container{
+            color: white;
+        }

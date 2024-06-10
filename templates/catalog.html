@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Native Cinema</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        .navbar,
+        .navbar-expand-lg {
+            border-color: #171717; /* Change border color to #171717 */
+        }
+        .navbar-brand {
+            font-family: El-Missiri, serif;
+            font-size: 26px;
+            color: white !important; /* Make navbar brand white */
+        }
+        .form-control {
+            width: 233px;
+            height: 36px;
+        }
+        .justify-content-start {
+            text-align: right;
+        }
+        .me-1{
+            background-color: gray;
+            color:black !important;
+            border-color: gray;
+        }
+        .me-2 {
+            background-color: #444444;
+            border-color: #444444;
+            color: white;
+        }
+        .me-3 {
+            background-color: #DA0037;
+            border-color: #DA0037;
+            color: white;
+        }
+        .container-fluid {
+            background-color: black !important;
+        }
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-family: "Montserrat Alternates", serif;
+            font-size: 14px;
+
+        }
+        .navbar-nav .nav-link.active {
+            color: white !important;
+            font-family: "Montserrat Alternates", serif;
+            font-size: 14px;
+        }
+        .navbar-toggler-icon {
+           box-shadow: 0 8px 16px rgba(255, 255, 255, 0.3), 0 12px 40px rgba(255, 255, 255, 0.3);
+
+        }
+
+        /* Add custom styles for centering search form */
+        .search-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Add custom styles for positioning sign container */
+        .sign {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        .collapse.show .row {
+            background-color:  #171717 !important;
+            border-color: #171717;
+    }
+        .collapse.show .col-lg-4 img,
+        .collapse.show .col-md-6 img,
+        .collapse.show .col-sm-12 img{
+                border-color: #171717 !important;
+                background-color:  #171717 !important;
+                color: #171717 !important;
+         }
+        .new{
+            font-family: El-Missiri, bold;
+            font-size: 40px;
+            color: white !important; /* Make navbar brand white */
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+
+        .film{
+            height: 500px;
+            width: 300px;
+        }
+
+        .showMoreButtonContainer{
+            text-align: center;
+        }
+        .container{
+            color: white;
+        }
+        .btn-primary {
+            background-color: #DA0037;
+            border-color: #DA0037;
+            box-shadow: 0 4px 10px rgba(218, 0, 55, 0.3), 0 12px 40px rgba(218, 0, 55, 0.3);
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: rgba(218, 0, 55, 0.7);
+            border-color: rgba(218, 0, 55, 0.7);
+        }
+    </style>
+</head>
+<body style="background-color: black">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">Native Cinema</a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/catalog">Каталог</a>
+                    </li>
+
+                </ul>
+                <!-- Wrap search form and buttons in a div for centering -->
+              <div class="search-form-container">
+                    <form class="d-flex" method="POST" action="{{ url_for('search') }}">
+                        <input class="form-control me-1" type="search" name="search_query" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success me-2" type="submit">Поиск</button>
+                    </form>
+              </div>
+                <!-- Container for sign in/register -->
+                <div class="sign">
+                {% if current_user.is_authenticated %}
+                    <button class="btn btn-outline-success me-2" type="button" onclick="window.location.href='{{ url_for('profile') }}'">Личный кабинет</button>
+                    <button class="btn btn-outline-success me-3" type="button" onclick="window.location.href='{{ url_for('logout') }}'">Выход</button>
+                {% else %}
+                    <form>
+                        <button class="btn btn-outline-success me-2" type="button" onclick="window.location.href='{{ url_for('login') }}'">Войти</button>
+                        <button class="btn btn-outline-success me-3" type="button" onclick="window.location.href='{{ url_for('registration') }}'">Зарегистрироваться</button>
+                    </form>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+
+    </nav>
+</header>
+
+  <div class="container mt-5">
+        <button class="btn btn-primary" id="filterBtn">Фильтры</button>
+        <div id="filterForm" style="display: none;">
+    <form method="post" action="/catalog">
+        <div class="form-group">
+            <label for="genre">Жанр:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="drama" value="Драма">
+                <label class="form-check-label" for="drama">Драма</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="comedy" value="Комедия">
+                <label class="form-check-label" for="comedy">Комедия</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="boevik" value="Боевик">
+                <label class="form-check-label" for="boevik">Боевик</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="voenniy" value="Военный">
+                <label class="form-check-label" for="voenniy">Военный</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="detective" value="Детектив">
+                <label class="form-check-label" for="detective">Детектив</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="document" value="Документальный">
+                <label class="form-check-label" for="document">Документальный</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="short" value="Короткометражка">
+                <label class="form-check-label" for="short">Короткометражка</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="criminal" value="Криминал">
+                <label class="form-check-label" for="criminal">Криминал</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="melodrama" value="Мелодрама">
+                <label class="form-check-label" for="melodrama">Короткометражка</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="adventures" value="Приключения">
+                <label class="form-check-label" for="adventures">Приключения</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="adventures" value="Приключения">
+                <label class="form-check-label" for="adventures">Романтика</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="family" value="Семейный">
+                <label class="form-check-label" for="family">Семейный</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="triller" value="Триллер">
+                <label class="form-check-label" for="triller">Триллер</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="scary" value="Ужасы">
+                <label class="form-check-label" for="scary">Ужасы</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="fantasy" value="Фэнтези">
+                <label class="form-check-label" for="fantasy">Фэнтези</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="genre" id="fantastic" value="Фантастика">
+                <label class="form-check-label" for="fantastic">Фантастика</label>
+            </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="year">Год выхода:</label>
+                    <input type="text" name="year">
+                </div>
+                <div class="form-group">
+                    <label for="director">Режиссёр:</label>
+                    <input type="text" name="director">
+                </div>
+                <div class="form-group">
+                    <label for="rating">Рейтинг:</label>
+                    <input type="text" name="rating">
+                </div>
+                 <div class="form-group">
+                    <label for="actors">Актёр:</label>
+                    <input type="text" name="actors">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Применить</button>
+            </form>
+        </div>
+            <form method="get" action="/catalog">
+                <label for="sort_by">Сортировать по:</label>
+                <select name="sort_by" id="sort_by" class="form-control">
+                    <option value="rating_desc">Рейтингу (по убыванию)</option>
+                    <option value="rating_asc">Рейтингу (по возрастанию)</option>
+                    <option value="year_desc">Дате выхода (по убыванию)</option>
+                    <option value="year_asc">Дате выхода (по возрастанию)</option>
+                </select>
+                <button type="submit" class="btn btn-primary mt-2">Применить</button>
+            </form>
+        </div>
+        <hr>
+
+
+    <script>
+        document.getElementById('filterBtn').addEventListener('click', function() {
+            const filterForm = document.getElementById('filterForm');
+            if (filterForm.style.display === 'none') {
+                filterForm.style.display = 'block';
+            } else {
+                filterForm.style.display = 'none';
+            }
+        });
+    </script>
+
+<div class="container">
+    <!-- Название "Каталог" -->
+    <h2 class="title new">Каталог фильмов</h2>
+
+    <div class="row">
+        {% for film in films %}
+            <div class="col-md-4">
+                <div class="film">
+                    <a href="{{ url_for('movie', film_id=film.id) }}">
+                        <img src="{{ film.poster }}" alt="{{ film.title }}" width="300" height="450">
+                        <h5 class="card-title">{{ film.title }}</h5>
+                    </a>
+
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<div class="showMoreButtonContainer">
+        <button id="showMoreButton" class="btn btn-primary me-3">Показать ещё</button>
+ </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var filmsContainer = document.getElementById("filmsContainer");
+        var showMoreButton = document.getElementById("showMoreButton");
+        var films = document.getElementsByClassName("film");
+        var filmsToShow = 9; // Первоначальное количество фильмов, которые будут показаны
+        var hiddenFilms = Array.from(films).slice(filmsToShow); // Фильмы, которые скрыты в начале
+
+        // Скрыть фильмы, начиная с filmsToShow
+        hiddenFilms.forEach(function(film) {
+            film.style.display = "none";
+        });
+
+        // Показать скрытые фильмы при нажатии на кнопку
+        showMoreButton.addEventListener("click", function() {
+            hiddenFilms.slice(0, 9).forEach(function(film) {
+                film.style.display = "block";
+            });
+
+            hiddenFilms = hiddenFilms.slice(12);
+
+            if (hiddenFilms.length === 0) {
+                showMoreButton.style.display = "none"; // Скрыть кнопку, если больше нет скрытых фильмов
+            }
+        });
+    });
+</script>
+
+<hr class="mt-5">
+<footer class="footer mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; 2024 DariaShustrova</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">О нас</a></li>
+                    <li class="list-inline-item"><a href="#">Условия использования</a></li>
+                    <li class="list-inline-item"><a href="#">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
